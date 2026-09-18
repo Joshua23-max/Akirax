@@ -3,7 +3,7 @@ const input = document.getElementById("messageInput");
 const chat = document.getElementById("chat");
 const typing = document.getElementById("typing");
 
-form.addEventListener("submit", function(event) {
+form.addEventListener("submit", async function(event) {
   event.preventDefault();
 
   const text = input.value.trim();
@@ -13,18 +13,52 @@ form.addEventListener("submit", function(event) {
   addMessage(text, "user");
 
   input.value = "";
+  input.disabled = true;
 
   typing.style.display = "block";
 
-  setTimeout(() => {
+  try {
+    const response = await fetch(
+      "https://YOUR-VERCEL-BACKEND.vercel.app/api/chat",
+      {
+        method: "POST",
+
+        headers: {
+          "Content-Type": "application/json"
+        },
+
+        body: JSON.stringify({
+          message: text
+        })
+      }
+    );
+
+    const data = await response.json();
+
+    if (!response.ok) {
+      throw new Error(data.error || "AI request failed");
+    }
+
+    addMessage(data.reply, "ai");
+
+  } catch (error) {
+
+    console.error(error);
+
+    addMessage(
+      "Sorry 😭 Akira's AI connection isn't working right now.",
+      "ai"
+    );
+
+  } finally {
+
     typing.style.display = "none";
+    input.disabled = false;
+    input.focus();
 
-    const reply = getAkiraReply(text);
-
-    addMessage(reply, "ai");
-
-  }, 1000);
+  }
 });
+
 
 function addMessage(text, type) {
 
@@ -43,31 +77,4 @@ function addMessage(text, type) {
   chat.appendChild(message);
 
   chat.scrollTop = chat.scrollHeight;
-}
-
-function getAkiraReply(message) {
-
-  const text = message.toLowerCase();
-
-  if (text.includes("hello") || text.includes("hi") || text.includes("hey")) {
-    return "Heyyy! ✨ I was waiting for you! What's up?";
-  }
-
-  if (text.includes("name")) {
-    return "I'm Akira! Your little AI companion. ✨";
-  }
-
-  if (text.includes("how are you")) {
-    return "I'm doing great! 🌟 What about you?";
-  }
-
-  if (text.includes("bored")) {
-    return "Bored?! 😤 Nope, we're fixing that. Tell me something random!";
-  }
-
-  if (text.includes("anime")) {
-    return "Anime? Now you're speaking my language! 👀✨";
-  }
-
-  return "Hmm... that's interesting. Tell me more! ✨";
 }

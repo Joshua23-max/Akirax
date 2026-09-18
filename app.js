@@ -19,7 +19,7 @@ form.addEventListener("submit", async function(event) {
 
   try {
     const response = await fetch(
-      "https://YOUR-VERCEL-BACKEND.vercel.app/api/chat",
+      "https://akirax-d8vo3qfs1-joshuashereni17-3852s-projects.vercel.app/api/chat",
       {
         method: "POST",
 

@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Akira AI</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+  <div class="app">
+
+    <header>
+      <div class="avatar">A</div>
+
+      <div class="character-info">
+        <h1>Akira</h1>
+        <p><span class="online"></span> Online in your universe</p>
+      </div>
+
+      <button class="menu">⋮</button>
+    </header>
+
+    <main id="chat">
+
+      <div class="welcome">
+        <div class="big-avatar">A</div>
+        <h2>Hey! I'm Akira ✨</h2>
+        <p>Your AI anime companion.</p>
+      </div>
+
+      <div class="message ai">
+        <div class="bubble">
+          Hii! 👋 I'm Akira. What are we talking about today?
+        </div>
+      </div>
+
+    </main>
+
+    <div class="typing" id="typing">
+      Akira is typing...
+    </div>
+
+    <form id="chatForm">
+      <input
+        id="messageInput"
+        type="text"
+        placeholder="Say something to Akira..."
+        autocomplete="off"
+      >
+
+      <button type="submit">➤</button>
+    </form>
+
+  </div>
+
+  <script src="app.js"></script>
+
+</body>
+</html>
